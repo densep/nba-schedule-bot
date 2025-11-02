@@ -164,17 +164,43 @@ async def send_message_async(text: str) -> bool:
         True if successful, False otherwise
     """
     try:
+        if not BOT_TOKEN:
+            print("❌ TELEGRAM_BOT_TOKEN is not set or is empty")
+            return False
+        
         bot = Bot(token=BOT_TOKEN)
         # Convert Chat ID to integer if it's a string
         chat_id = int(CHAT_ID) if isinstance(CHAT_ID, str) else CHAT_ID
-        await bot.send_message(chat_id=chat_id, text=text)
-        return True
+        
+        # Verify bot token first
+        bot_info = await bot.get_me()
+        
+        try:
+            await bot.send_message(chat_id=chat_id, text=text)
+            return True
+        except Exception as send_error:
+            error_msg = str(send_error)
+            if "Unauthorized" in error_msg:
+                print(f"❌ Unauthorized error. Possible causes:")
+                print(f"   - Bot token is invalid or expired")
+                print(f"   - Chat ID ({chat_id}) is incorrect")
+                print(f"   - You haven't started a conversation with @{bot_info.username}")
+                print(f"   → Go to Telegram and send /start to @{bot_info.username}")
+            elif "Chat not found" in error_msg or "chat not found" in error_msg.lower():
+                print(f"❌ Chat not found for chat ID: {chat_id}")
+                print(f"   → Make sure you've started a conversation with @{bot_info.username}")
+                print(f"   → Verify the TELEGRAM_CHAT_ID secret in GitHub Actions is correct")
+            else:
+                print(f"❌ Error sending Telegram message: {send_error}")
+            return False
+            
     except Exception as e:
         error_msg = str(e)
-        if "Chat not found" in error_msg:
-            print(f"❌ Chat not found. Please make sure you've started a conversation with your bot")
+        if "Unauthorized" in error_msg:
+            print(f"❌ Bot token is invalid or unauthorized")
+            print(f"   → Verify TELEGRAM_BOT_TOKEN secret in GitHub Actions is correct")
         else:
-            print(f"Error sending Telegram message: {e}")
+            print(f"❌ Error initializing bot: {e}")
         return False
 
 
