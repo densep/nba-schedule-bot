@@ -1,0 +1,59 @@
+# Environment variables
+.env
+
+# Local bot with hardcoded secrets (keep local only)
+nba_schedule_bot.py
+test_warning_messages.py
+
+# Local scripts
+run_bot.sh
+run_warning_bot.sh
+setup.sh
+prevent_sleep.sh
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+bot.log
+warning_bot.log
+warning_bot_error.log
+
+# Bot state files
+warning_sent_*.txt
+checkin_sent_*.txt
+last_checked_in.txt
+
+# OS
+.DS_Store
+Thumbs.db
