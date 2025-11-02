@@ -18,9 +18,9 @@ This bot automatically sends daily NBA game schedules via Telegram using GitHub 
 2. Click **New repository secret**
 3. Add these secrets:
    - **Name**: `TELEGRAM_BOT_TOKEN`
-     **Value**: `8516534804:AAFvYFYmFBZi5Nkmi-c--C8YZYIHtL46s30`
+     **Value**: Your bot token (get it from @BotFather on Telegram)
    - **Name**: `TELEGRAM_CHAT_ID`
-     **Value**: `6952422677`
+     **Value**: Your chat ID (see README.md for instructions on getting this)
 4. Click **Add secret** for each
 
 ### 3. Push Code to GitHub
@@ -73,4 +73,5 @@ To test manually:
 - This setup is for the **morning schedule bot only**
 - The **warning bot** still needs to run locally (requires continuous monitoring)
 - All secrets are stored securely in GitHub and never exposed in logs
+
 

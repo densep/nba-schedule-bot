@@ -199,11 +199,17 @@ def main():
     """Main function to fetch schedule and send message."""
     # Validate configuration
     if not BOT_TOKEN or not CHAT_ID:
-        print("⚠️  TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set as environment variables")
-        return
+        error_msg = "⚠️  TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set as environment variables"
+        print(error_msg)
+        exit(1)
     
     # Get today's schedule
     schedule_text = get_today_schedule()
+    
+    # Check if schedule fetch failed
+    if schedule_text.startswith("❌"):
+        print(f"Error fetching schedule: {schedule_text}")
+        exit(1)
     
     # Format final message
     arizona_tz = pytz.timezone(TIMEZONE)
@@ -213,10 +219,13 @@ def main():
     # Send message
     if send_message(message):
         print(f"✅ Message sent successfully at {datetime.now(arizona_tz).strftime('%Y-%m-%d %H:%M:%S %Z')}")
+        exit(0)
     else:
         print("❌ Failed to send message")
+        exit(1)
 
 
 if __name__ == "__main__":
     main()
+
 

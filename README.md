@@ -39,7 +39,7 @@ pip install -r requirements.txt
 **For Group/Channel:**
 1. Add your bot to the group/channel as admin
 2. Send a message in the group/channel
-3. Visit: `https://api.telegram.org/bot8516534804:AAFvYFYmFBZi5Nkmi-c--C8YZYIHtL46s30/getUpdates`
+3. Visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
 4. Find the `chat.id` in the response
 
 #### Set Chat ID
